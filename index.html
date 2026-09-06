@@ -382,8 +382,8 @@
         const auth = getAuth(app);
         const db = getFirestore(app);
 
-        // Menggunakan root level collection publik agar terhindar dari aturan ketat nested path jika belum disetup
-        const workspaceId = 'default_workspace_v1';
+        // Menggunakan path terbuka pada root collection publik untuk menghindari masalah permission rules
+        const workspaceId = 'public_shared_workspace_v1';
 
         window.dataKisiKisi = [];
         window.dataSoal = [];
@@ -416,7 +416,6 @@
             try {
                 await signInAnonymously(auth);
                 
-                // Ubah Indikator Status Cloud
                 const statusBadge = document.getElementById('cloud-status');
                 statusBadge.className = 'text-[10px] bg-green-500 px-2 py-1 rounded-full font-bold shadow';
                 statusBadge.textContent = 'Cloud Terhubung';
@@ -437,7 +436,7 @@
                 if(error.code === 'permission-denied') {
                     const statusBadge = document.getElementById('cloud-status');
                     statusBadge.className = 'text-[10px] bg-yellow-500 px-2 py-1 rounded-full font-bold shadow';
-                    statusBadge.textContent = 'Izin Akses Ditolak (Periksa Rules)';
+                    statusBadge.textContent = 'Izin Akses Ditolak (Buka Rules Firebase Console ke allow read, write: if true;)';
                 }
             };
 
