@@ -61,16 +61,16 @@
 
     <!-- NAVIGATION / HEADER (Sembunyi saat cetak) -->
     <nav class="bg-blue-600 text-white p-4 shadow-md no-print sticky top-0 z-10">
-        <div class="max-w-6xl mx-auto flex justify-between items-center">
+        <div class="max-w-6xl mx-auto flex justify-between items-center flex-wrap gap-2">
             <div class="flex items-center space-x-3">
                 <h1 class="text-xl font-bold">App Penyusun Kisi-kisi & Soal</h1>
                 <span id="cloud-status" class="text-xs bg-red-500 px-2 py-1 rounded-full font-semibold shadow" title="Status koneksi ke Database Cloud">Menghubungkan...</span>
             </div>
-            <div class="space-x-2">
-                <button onclick="switchTab('info')" id="btn-info" class="tab-btn bg-blue-700 hover:bg-blue-800 px-4 py-2 rounded transition font-semibold">1. Info Umum</button>
-                <button onclick="switchTab('kisi')" id="btn-kisi" class="tab-btn bg-blue-500 hover:bg-blue-700 px-4 py-2 rounded transition">2. Kisi-kisi</button>
-                <button onclick="switchTab('soal')" id="btn-soal" class="tab-btn bg-blue-500 hover:bg-blue-700 px-4 py-2 rounded transition">3. Butir Soal</button>
-                <button onclick="switchTab('cetak'); renderPrint()" id="btn-cetak" class="tab-btn bg-green-500 hover:bg-green-600 px-4 py-2 rounded transition font-bold">4. Preview & Cetak</button>
+            <div class="space-x-1 sm:space-x-2">
+                <button onclick="switchTab('info')" id="btn-info" class="tab-btn bg-blue-700 hover:bg-blue-800 px-3 py-1.5 sm:px-4 sm:py-2 rounded transition font-semibold text-xs sm:text-sm">1. Info Umum</button>
+                <button onclick="switchTab('kisi')" id="btn-kisi" class="tab-btn bg-blue-500 hover:bg-blue-700 px-3 py-1.5 sm:px-4 sm:py-2 rounded transition text-xs sm:text-sm">2. Kisi-kisi</button>
+                <button onclick="switchTab('soal')" id="btn-soal" class="tab-btn bg-blue-500 hover:bg-blue-700 px-3 py-1.5 sm:px-4 sm:py-2 rounded transition text-xs sm:text-sm">3. Butir Soal</button>
+                <button onclick="switchTab('cetak'); renderPrint()" id="btn-cetak" class="tab-btn bg-green-500 hover:bg-green-600 px-3 py-1.5 sm:px-4 sm:py-2 rounded transition font-bold text-xs sm:text-sm">4. Preview & Cetak</button>
             </div>
         </div>
     </nav>
@@ -226,7 +226,7 @@
                     </thead>
                     <tbody id="table-kisi-body">
                         <!-- Data will be injected here via JS -->
-                        <tr><td colspan="7" class="text-center p-4 italic text-gray-500">Belum ada data kisi-kisi.</td></tr>
+                        <tr><td colspan="8" class="text-center p-4 italic text-gray-500">Belum ada data kisi-kisi.</td></tr>
                     </tbody>
                 </table>
             </div>
@@ -255,7 +255,7 @@
                         <textarea id="soal-teks" rows="4" class="w-full border rounded p-2 text-sm"></textarea>
                     </div>
 
-                    <!-- NEW: Input Gambar -->
+                    <!-- Input Gambar -->
                     <div class="mb-3 border p-3 rounded bg-white">
                         <label class="block text-xs font-bold text-gray-700 mb-2">Sisipkan Gambar (Opsional)</label>
                         <div class="flex space-x-3 mb-2 text-xs">
@@ -327,7 +327,7 @@
 
         <!-- TAB 4: PREVIEW CETAK (UI controls) -->
         <section id="tab-cetak" class="tab-content hidden">
-            <div class="flex justify-between items-center mb-4 border-b pb-2">
+            <div class="flex justify-between items-center mb-4 border-b pb-2 flex-wrap gap-2">
                 <h2 class="text-2xl font-bold">Preview Cetak Dokumen</h2>
                 <button onclick="window.print()" class="bg-gray-800 text-white px-6 py-2 rounded hover:bg-black font-bold flex items-center">
                     <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"></path></svg>
@@ -338,21 +338,19 @@
             
             <!-- Simulasi Kertas -->
             <div class="border shadow-2xl p-8 mx-auto bg-white" style="max-width: 210mm; min-height: 297mm;">
-                <!-- Konten Print Area (di-clone oleh JS saat cetak, namun juga ditampilkan sebagai preview disini) -->
+                <!-- Konten Print Area -->
                 <div id="preview-area-wrapper"></div>
             </div>
         </section>
 
     </main>
 
-    <!-- AREA KHUSUS PRINT (Hanya muncul di kertas print) -->
-    <div id="print-area" class="print-area-only">
-        <!-- Konten dinamis yang dihasilkan JS -->
-    </div>
+    <!-- AREA KHUSUS PRINT -->
+    <div id="print-area" class="print-area-only"></div>
 
-    <!-- Modal Dialog Kustom (Pengganti Alert/Confirm Standar) -->
+    <!-- Modal Dialog Kustom -->
     <div id="custom-dialog" class="fixed inset-0 bg-black bg-opacity-60 hidden z-50 no-print flex justify-center items-start pt-20 transition-opacity">
-        <div class="bg-white p-6 rounded-lg shadow-2xl max-w-sm w-full border-t-4 border-blue-600">
+        <div class="bg-white p-6 rounded-lg shadow-2xl max-w-sm w-full border-t-4 border-blue-600 mx-4">
             <h3 id="dialog-title" class="text-lg font-bold mb-2 text-gray-800">Pemberitahuan</h3>
             <p id="dialog-message" class="text-sm text-gray-600 mb-6"></p>
             <div class="flex justify-end space-x-3">
@@ -362,7 +360,7 @@
         </div>
     </div>
 
-    <!-- JAVASCRIPT LOGIC DENGAN FIREBASE INTEGRATION -->
+    <!-- FIREBASE & APP LOGIC -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
         import { getAuth, signInAnonymously } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
@@ -378,11 +376,8 @@
             measurementId: "G-X7NGTWZMZK"
         };
 
-        const app = initializeApp(firebaseConfig);
-        const auth = getAuth(app);
-        const db = getFirestore(app);
-
-        // Menggunakan path terbuka pada root collection publik untuk menghindari masalah permission rules
+        let db = null;
+        let useLocalStorageOnly = false;
         const workspaceId = 'public_shared_workspace_v1';
 
         window.dataKisiKisi = [];
@@ -414,6 +409,9 @@
 
         async function initFirebase() {
             try {
+                const app = initializeApp(firebaseConfig);
+                const auth = getAuth(app);
+                db = getFirestore(app);
                 await signInAnonymously(auth);
                 
                 const statusBadge = document.getElementById('cloud-status');
@@ -423,24 +421,71 @@
                 setupRealtimeListeners();
                 setupAutoSaveInfo();
             } catch (error) {
-                console.error("Firebase auth error:", error);
+                console.warn("Cloud connection fallback to local storage:", error);
+                useLocalStorageOnly = true;
                 const statusBadge = document.getElementById('cloud-status');
-                statusBadge.className = 'text-[10px] bg-red-500 px-2 py-1 rounded-full font-bold shadow';
-                statusBadge.textContent = 'Gagal Autentikasi';
+                statusBadge.className = 'text-[10px] bg-blue-500 px-2 py-1 rounded-full font-bold shadow';
+                statusBadge.textContent = 'Mode Lokal Aktif';
+                loadLocalStorageData();
+            }
+        }
+
+        function loadLocalStorageData() {
+            try {
+                const info = JSON.parse(localStorage.getItem('app_info') || '{}');
+                document.getElementById('info-sekolah').value = info.sekolah || '';
+                document.getElementById('info-mapel').value = info.mapel || '';
+                document.getElementById('info-kelas').value = info.kelas || '';
+                document.getElementById('info-tahun').value = info.tahun || '';
+                document.getElementById('info-guru').value = info.guru || '';
+                document.getElementById('info-nip').value = info.nip || '';
+
+                window.dataMasterKD = JSON.parse(localStorage.getItem('app_masterKd') || '[]');
+                window.dataKisiKisi = JSON.parse(localStorage.getItem('app_kisi') || '[]');
+                window.dataSoal = JSON.parse(localStorage.getItem('app_soal') || '[]');
+
+                window.renderTableMasterKD();
+                window.syncDropdownKD();
+                window.renderTableKisi();
+                window.renderListSoal();
+                window.syncDropdownSoal();
+            } catch(e) {
+                console.error("Local storage error:", e);
+            }
+        }
+
+        function saveLocalStorageData() {
+            if(!useLocalStorageOnly) return;
+            try {
+                const info = {
+                    sekolah: document.getElementById('info-sekolah').value,
+                    mapel: document.getElementById('info-mapel').value,
+                    kelas: document.getElementById('info-kelas').value,
+                    tahun: document.getElementById('info-tahun').value,
+                    guru: document.getElementById('info-guru').value,
+                    nip: document.getElementById('info-nip').value
+                };
+                localStorage.setItem('app_info', JSON.stringify(info));
+                localStorage.setItem('app_masterKd', JSON.stringify(window.dataMasterKD));
+                localStorage.setItem('app_kisi', JSON.stringify(window.dataKisiKisi));
+                localStorage.setItem('app_soal', JSON.stringify(window.dataSoal));
+            } catch(e) {
+                console.error("Save local storage error:", e);
             }
         }
 
         function setupRealtimeListeners() {
+            if(useLocalStorageOnly) return;
+
             const handleFbError = (error) => {
-                console.error("Snapshot Error:", error);
-                if(error.code === 'permission-denied') {
-                    const statusBadge = document.getElementById('cloud-status');
-                    statusBadge.className = 'text-[10px] bg-yellow-500 px-2 py-1 rounded-full font-bold shadow';
-                    statusBadge.textContent = 'Izin Akses Ditolak (Buka Rules Firebase Console ke allow read, write: if true;)';
-                }
+                console.warn("Snapshot Error, switching to local mode:", error);
+                useLocalStorageOnly = true;
+                const statusBadge = document.getElementById('cloud-status');
+                statusBadge.className = 'text-[10px] bg-blue-500 px-2 py-1 rounded-full font-bold shadow';
+                statusBadge.textContent = 'Mode Lokal Aktif';
+                loadLocalStorageData();
             };
 
-            // 1. Data Info Umum
             onSnapshot(doc(db, 'workspaces', workspaceId, 'appData', 'info'), (docSnap) => {
                 if (docSnap.exists()) {
                     const data = docSnap.data();
@@ -453,7 +498,6 @@
                 }
             }, handleFbError);
 
-            // 2. Data Master KD & Materi
             onSnapshot(collection(db, 'workspaces', workspaceId, 'masterKd'), (snapshot) => {
                 window.dataMasterKD = [];
                 snapshot.forEach(d => window.dataMasterKD.push(d.data()));
@@ -461,7 +505,6 @@
                 window.syncDropdownKD();
             }, handleFbError);
 
-            // 3. Data Kisi-Kisi
             onSnapshot(collection(db, 'workspaces', workspaceId, 'kisiKisi'), (snapshot) => {
                 window.dataKisiKisi = [];
                 snapshot.forEach(d => window.dataKisiKisi.push(d.data()));
@@ -470,7 +513,6 @@
                 window.syncDropdownSoal();
             }, handleFbError);
 
-            // 4. Data Soal
             onSnapshot(collection(db, 'workspaces', workspaceId, 'soal'), (snapshot) => {
                 window.dataSoal = [];
                 snapshot.forEach(d => window.dataSoal.push(d.data()));
@@ -493,6 +535,10 @@
                         guru: document.getElementById('info-guru').value,
                         nip: document.getElementById('info-nip').value
                     };
+                    if(useLocalStorageOnly) {
+                        saveLocalStorageData();
+                        return;
+                    }
                     try {
                         await setDoc(doc(db, 'workspaces', workspaceId, 'appData', 'info'), data);
                     } catch(e) {
@@ -532,12 +578,22 @@
             }
 
             const newKd = { id: 'kd-' + Date.now(), kd, materi };
+            if(useLocalStorageOnly) {
+                window.dataMasterKD.push(newKd);
+                saveLocalStorageData();
+                window.renderTableMasterKD();
+                window.syncDropdownKD();
+                document.getElementById('master-kd').value = '';
+                document.getElementById('master-materi').value = '';
+                return;
+            }
+
             try {
                 await setDoc(doc(db, 'workspaces', workspaceId, 'masterKd', newKd.id), newKd);
                 document.getElementById('master-kd').value = '';
                 document.getElementById('master-materi').value = '';
             } catch(e) {
-                window.showDialog("Gagal menyimpan ke Cloud. Pastikan rules Firestore memperbolehkan akses tulis.");
+                window.showDialog("Gagal menyimpan data master.");
             }
         }
 
@@ -550,7 +606,7 @@
             
             const rows = text.split('\n');
             let count = 0;
-            const promises = [];
+            const newItems = [];
 
             rows.forEach(row => {
                 const cols = row.split('\t');
@@ -559,22 +615,33 @@
                     const materi = cols[1].trim();
                     if (kd && materi) {
                         const id = 'kd-' + Date.now() + Math.random().toString(36).substring(7);
-                        promises.push(setDoc(doc(db, 'workspaces', workspaceId, 'masterKd', id), { id, kd, materi }));
+                        newItems.push({ id, kd, materi });
                         count++;
                     }
                 }
             });
             
-            if (promises.length > 0) {
+            if (newItems.length > 0) {
+                if(useLocalStorageOnly) {
+                    newItems.forEach(item => window.dataMasterKD.push(item));
+                    saveLocalStorageData();
+                    window.renderTableMasterKD();
+                    window.syncDropdownKD();
+                    document.getElementById('paste-excel').value = '';
+                    window.showDialog(count + " Data KD & Materi berhasil disimpan secara lokal!");
+                    return;
+                }
+
                 try {
+                    const promises = newItems.map(item => setDoc(doc(db, 'workspaces', workspaceId, 'masterKd', item.id), item));
                     await Promise.all(promises);
                     document.getElementById('paste-excel').value = '';
                     window.showDialog(count + " Data KD & Materi berhasil disimpan ke sistem Cloud!");
                 } catch(e) {
-                    window.showDialog("Gagal menyimpan batch data. Periksa koneksi atau rules database Anda.");
+                    window.showDialog("Gagal menyimpan batch data.");
                 }
             } else {
-                window.showDialog("Format paste tidak dikenali. Pastikan meng-copy dari Spreadsheet secara bersamaan.");
+                window.showDialog("Format paste tidak dikenali. Pastikan meng-copy 2 kolom dari Spreadsheet.");
             }
         }
 
@@ -603,16 +670,18 @@
         }
 
         window.deleteMasterKD = function(id) {
-            window.showDialog("Yakin ingin menghapus Master KD ini? Jika sedang dipakai di kisi-kisi, akan hilang referensinya.", true, async () => {
+            window.showDialog("Yakin ingin menghapus Master KD ini?", true, async () => {
+                if(useLocalStorageOnly) {
+                    window.dataMasterKD = window.dataMasterKD.filter(k => k.id !== id);
+                    saveLocalStorageData();
+                    window.renderTableMasterKD();
+                    window.syncDropdownKD();
+                    return;
+                }
                 try {
                     await deleteDoc(doc(db, 'workspaces', workspaceId, 'masterKd', id));
-                    const kdSelect = document.getElementById('kisi-kd');
-                    if (kdSelect.value === id) {
-                        kdSelect.value = '';
-                        window.autoFillMateri();
-                    }
                 } catch(e) {
-                    window.showDialog("Gagal menghapus data dari Cloud.");
+                    window.showDialog("Gagal menghapus data.");
                 }
             });
         }
@@ -667,11 +736,21 @@
                 indikator, level, bentuk, noSoal
             };
 
+            if(useLocalStorageOnly) {
+                window.dataKisiKisi.push(newKisi);
+                window.dataKisiKisi.sort((a, b) => parseInt(a.noSoal) - parseInt(b.noSoal));
+                saveLocalStorageData();
+                window.renderTableKisi();
+                window.syncDropdownSoal();
+                window.clearFormKisi();
+                return;
+            }
+
             try {
                 await setDoc(doc(db, 'workspaces', workspaceId, 'kisiKisi', newKisi.id), newKisi);
                 window.clearFormKisi();
             } catch(e) {
-                window.showDialog("Gagal menyimpan kisi-kisi ke Cloud. Periksa izin akses Firestore.");
+                window.showDialog("Gagal menyimpan kisi-kisi.");
             }
         }
 
@@ -718,7 +797,16 @@
         }
 
         window.deleteKisi = function(id) {
-            window.showDialog("Yakin ingin menghapus kisi-kisi ini? Jika ada soal terkait, ikut terhapus.", true, async () => {
+            window.showDialog("Yakin ingin menghapus kisi-kisi ini? Soal terkait akan ikut terhapus.", true, async () => {
+                if(useLocalStorageOnly) {
+                    window.dataKisiKisi = window.dataKisiKisi.filter(k => k.id !== id);
+                    window.dataSoal = window.dataSoal.filter(s => s.kisiId !== id);
+                    saveLocalStorageData();
+                    window.renderTableKisi();
+                    window.renderListSoal();
+                    window.syncDropdownSoal();
+                    return;
+                }
                 try {
                     await deleteDoc(doc(db, 'workspaces', workspaceId, 'kisiKisi', id));
                     const relatedSoal = window.dataSoal.find(s => s.kisiId === id);
@@ -726,7 +814,7 @@
                         await deleteDoc(doc(db, 'workspaces', workspaceId, 'soal', relatedSoal.id));
                     }
                 } catch(e) {
-                    window.showDialog("Gagal menghapus kisi-kisi.");
+                    window.showDialog("Gagal menghapus.");
                 }
             });
         }
@@ -863,11 +951,26 @@
                 newSoal = { ...newSoal, optA, optB, optC, optD, kunci };
             }
 
+            if(useLocalStorageOnly) {
+                if(window.currentEditSoalId) {
+                    window.dataSoal = window.dataSoal.map(s => s.id === window.currentEditSoalId ? newSoal : s);
+                } else {
+                    window.dataSoal.push(newSoal);
+                }
+                window.dataSoal.sort((a, b) => parseInt(a.noSoal) - parseInt(b.noSoal));
+                saveLocalStorageData();
+                window.renderListSoal();
+                window.syncDropdownSoal();
+                window.renderTableKisi();
+                window.clearFormSoal();
+                return;
+            }
+
             try {
                 await setDoc(doc(db, 'workspaces', workspaceId, 'soal', newSoal.id), newSoal);
                 window.clearFormSoal();
             } catch(e) {
-                window.showDialog("Gagal menyimpan soal ke Cloud. Periksa izin Firestore Anda.");
+                window.showDialog("Gagal menyimpan soal.");
             }
         }
 
@@ -981,6 +1084,14 @@
 
         window.deleteSoal = function(id) {
             window.showDialog("Yakin ingin menghapus soal ini?", true, async () => {
+                if(useLocalStorageOnly) {
+                    window.dataSoal = window.dataSoal.filter(s => s.id !== id);
+                    saveLocalStorageData();
+                    window.renderListSoal();
+                    window.syncDropdownSoal();
+                    window.renderTableKisi();
+                    return;
+                }
                 try {
                     await deleteDoc(doc(db, 'workspaces', workspaceId, 'soal', id));
                 } catch(e) {
